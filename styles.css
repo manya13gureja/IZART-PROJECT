@@ -1,0 +1,172 @@
+:root {
+  --hero-bg: #b8c4b2;
+  --ink: #181818;
+  --soft-ink: rgba(24, 24, 24, 0.52);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: var(--hero-bg);
+  color: var(--ink);
+}
+
+.hero {
+  --reveal-x: 50%;
+  --reveal-y: 50%;
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--hero-bg);
+  isolation: isolate;
+}
+
+.hero::before,
+.hero::after,
+.image-reveal {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.image-reveal {
+  z-index: 0;
+  background:
+    linear-gradient(rgba(184, 196, 178, 0.22), rgba(184, 196, 178, 0.22)),
+    url("./assets/resonance-bg.jpg") center / cover no-repeat;
+  filter: saturate(0.86) contrast(0.94) brightness(1.03) blur(0.16px);
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 80ms ease-out;
+  -webkit-mask-image:
+    radial-gradient(ellipse 24vw 16vw at var(--reveal-x) var(--reveal-y), rgba(0, 0, 0, 0.58), transparent 76%),
+    radial-gradient(ellipse 18vw 12vw at calc(var(--reveal-x) + 6%) calc(var(--reveal-y) - 4%), rgba(0, 0, 0, 0.34), transparent 74%),
+    radial-gradient(ellipse 16vw 20vw at calc(var(--reveal-x) - 5%) calc(var(--reveal-y) + 6%), rgba(0, 0, 0, 0.28), transparent 78%);
+  mask-image:
+    radial-gradient(ellipse 24vw 16vw at var(--reveal-x) var(--reveal-y), rgba(0, 0, 0, 0.58), transparent 76%),
+    radial-gradient(ellipse 18vw 12vw at calc(var(--reveal-x) + 6%) calc(var(--reveal-y) - 4%), rgba(0, 0, 0, 0.34), transparent 74%),
+    radial-gradient(ellipse 16vw 20vw at calc(var(--reveal-x) - 5%) calc(var(--reveal-y) + 6%), rgba(0, 0, 0, 0.28), transparent 78%);
+  -webkit-mask-composite: source-over;
+  mask-composite: add;
+}
+
+.hero.is-revealing .image-reveal {
+  opacity: 0.34;
+}
+
+.hero::before {
+  content: "";
+  z-index: 1;
+  background:
+    radial-gradient(circle at 17% 29%, rgba(255, 255, 255, 0.22), transparent 7%),
+    radial-gradient(circle at 76% 34%, rgba(32, 32, 32, 0.08), transparent 8%),
+    radial-gradient(circle at 28% 82%, rgba(255, 255, 255, 0.13), transparent 11%),
+    repeating-linear-gradient(108deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 9px),
+    repeating-linear-gradient(14deg, rgba(28, 28, 28, 0.035) 0 1px, transparent 1px 12px);
+  mix-blend-mode: soft-light;
+  opacity: 0.58;
+}
+
+.hero::after {
+  content: "";
+  z-index: 2;
+  background:
+    radial-gradient(ellipse at 24% 72%, rgba(31, 31, 31, 0.12), transparent 0.5%, transparent 7%),
+    radial-gradient(ellipse at 25% 73%, transparent 0 4%, rgba(255, 255, 255, 0.16) 4.6%, transparent 8%),
+    radial-gradient(ellipse at 71% 22%, rgba(255, 255, 255, 0.12), transparent 0.5%, transparent 8%),
+    radial-gradient(ellipse at 72% 22%, transparent 0 4%, rgba(26, 26, 26, 0.09) 4.8%, transparent 9%),
+    linear-gradient(92deg, transparent 0 16%, rgba(255, 255, 255, 0.1) 18%, transparent 21% 100%),
+    linear-gradient(164deg, transparent 0 57%, rgba(22, 22, 22, 0.075) 58%, transparent 61% 100%);
+  filter: blur(0.5px);
+  opacity: 0.6;
+}
+
+.brand,
+.statement,
+.entry {
+  margin: 0;
+  font-weight: 100;
+  letter-spacing: 0;
+}
+
+.brand {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  z-index: 3;
+  display: block;
+  width: 206px;
+  height: auto;
+  transform: translateX(-50%) scaleX(1.03);
+  transform-origin: center;
+}
+
+.statement {
+  position: absolute;
+  left: 66px;
+  bottom: 204px;
+  z-index: 3;
+  max-width: 720px;
+  font-size: 46px;
+  line-height: 0.96;
+}
+
+.entry {
+  position: absolute;
+  left: 50%;
+  bottom: 60px;
+  z-index: 3;
+  transform: translateX(-50%);
+  color: var(--soft-ink);
+  font-size: 30px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+@media (max-width: 760px) {
+  .brand {
+    top: 48px;
+    width: 162px;
+  }
+
+  .statement {
+    left: 28px;
+    right: 28px;
+    bottom: 178px;
+    max-width: none;
+    font-size: 34px;
+  }
+
+  .entry {
+    bottom: 46px;
+    font-size: 23px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand {
+    top: 42px;
+    width: 142px;
+  }
+
+  .statement {
+    left: 22px;
+    right: 22px;
+    bottom: 156px;
+    font-size: 29px;
+  }
+
+  .entry {
+    font-size: 20px;
+  }
+}
